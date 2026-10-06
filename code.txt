@@ -1,0 +1,59 @@
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.metrics import classification_report, confusion_matrix
+
+print("TensorFlow version:", tf.__version__)
+  import tensorflow as tf
+print("GPU:", tf.config.list_physical_devices('GPU'))
+  model = tf.keras.Sequential([
+
+    # Input image
+    tf.keras.layers.Input(shape=(224, 224, 3)),
+
+    # CNN Layer 1
+    tf.keras.layers.Conv2D(
+        32,
+        (3, 3),
+        activation='relu'
+    ),
+    tf.keras.layers.MaxPooling2D(),
+
+    # CNN Layer 2
+    tf.keras.layers.Conv2D(
+        64,
+        (3, 3),
+        activation='relu'
+    ),
+    tf.keras.layers.MaxPooling2D(),
+
+    # CNN Layer 3
+    tf.keras.layers.Conv2D(
+        128,
+        (3, 3),
+        activation='relu'
+    ),
+    tf.keras.layers.MaxPooling2D(),
+
+    # Convert feature maps into one-dimensional data
+    tf.keras.layers.Flatten(),
+
+    # Fully connected layer
+    tf.keras.layers.Dense(
+        128,
+        activation='relu'
+    ),
+
+    # Reduce overfitting
+    tf.keras.layers.Dropout(0.5),
+
+    # 4 output classes
+    tf.keras.layers.Dense(
+        4,
+        activation='softmax'
+    )
+])
+
+print("CNN model created successfully!")
